@@ -1,0 +1,88 @@
+import numpy as np
+from sklearn import datasets
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+from time import time
+from scipy.stats import randint as sp_randint
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.datasets import load_digits
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from scipy.stats import uniform
+from sklearn import linear_model, datasets
+from  tpot import TPOTClassifier
+import autosklearn.classification
+
+# get IRIS data and split it into training and test data
+iris = datasets.load_iris()
+X, y = iris.data, iris.target
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=20)
+
+
+# specify parameters and distributions to sample from
+penalty = ['l1', 'l2']
+
+# Create regularization hyperparameter distribution using uniform distribution
+C = uniform(loc=0, scale=4)
+# Create logistic regression
+clf1 = linear_model.LogisticRegression()
+
+# Create hyperparameter options
+hyperparameters = dict(C=C, penalty=penalty)
+
+# run randomized search
+n_iter_search = 100
+
+random_search = RandomizedSearchCV(clf1, param_distributions=hyperparameters,
+                                   n_iter=n_iter_search)
+
+start = time()
+best_model1=random_search.fit(X_train, y_train)
+print("Randome Search took %.2f seconds"
+      " parameter settings." % ((time() - start)))
+
+print("Score for Random Search", random_search.score(X_test, y_test))
+
+print("Best for Random Search \n",  best_model1.best_estimator_.get_params())
+
+
+
+# run grid search
+
+# Create a pipeline
+pipe = Pipeline([('classifier', RandomForestClassifier())])
+
+# Create space of candidate learning algorithms and their hyperparameters
+search_space = [{'classifier': [LogisticRegression()],
+                 'classifier__penalty': ['l1', 'l2'],
+                 'classifier__C': np.logspace(0, 4, 10)},
+                {'classifier': [RandomForestClassifier()],
+                 'classifier__n_estimators': [10, 100, 1000],
+                 'classifier__max_features': [1, 2, 3]}]
+# Create grid search 
+grid_search = GridSearchCV(pipe, search_space, cv=5, verbose=0)
+
+grid_search.fit(X_train, y_train)
+
+print("GridSearchCV took %.2f seconds" % (time() - start))
+      
+print("Score for Grid Search", grid_search.score(X_test, y_test))
+
+
+tpot = TPOTClassifier(verbosity=2, max_time_mins=4, population_size=40)
+tpot.fit(X_train, y_train)
+
+print(tpot.score(X_test, y_test))
+
+
+#Run Auto-sklearn
+
+automl = autosklearn.classification.AutoSklearnClassifier()
+automl.fit(X_train, y_train)
+y_hat = automl.predict(X_test)
+print("Accuracy score", sklearn.metrics.accuracy_score(y_test, y_hat))
