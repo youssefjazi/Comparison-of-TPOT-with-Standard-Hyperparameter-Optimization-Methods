@@ -73,7 +73,7 @@ print("Best for Grid Search \n", best_model.best_estimator_.get_params())
 
 #Run TPOT
 
-tpot = TPOTClassifier(verbosity=2, max_time_mins=4, population_size=40)
+tpot = TPOTClassifier(verbosity=2, max_time_mins=8, population_size=40)
 tpot.fit(X_train, y_train)
 
 print(tpot.score(X_test, y_test))
