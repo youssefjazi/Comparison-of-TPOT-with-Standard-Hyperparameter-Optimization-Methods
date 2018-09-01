@@ -1,12 +1,12 @@
 # Comparison-of-TPOT-with-Standard-Hyperparameter-Optimization-Methods
 
 ++ Auto Sklearn Insatall and Requirement :
++Requirement:
 -Linux operating system (for example Ubuntu),
 -Python (>=3.5).
 -C++ compiler (with C++11 supports) and SWIG (version 3.0 or later)
 
 +Instaling auto-sklearn:
-
 -install all dependencies manually with:
 curl https://raw.githubusercontent.com/automl/auto-sklearn/master/requirements.txt | xargs -n 1 -L 1 pip install
 
@@ -18,7 +18,5 @@ sudo apt-get install build-essential swig
 
 ++Instaling TPOT
 Run: pip install tpot
-
 ++Installing Sklearn
-
 Run: pip install -U scikit-learn
