@@ -52,7 +52,7 @@ print("Best for Random Search \n",  best_model1.best_estimator_.get_params())
 
 
 
-# run grid search
+# Run grid search
 
 # Create a pipeline
 pipe = Pipeline([('classifier', RandomForestClassifier())])
@@ -73,6 +73,7 @@ print("GridSearchCV took %.2f seconds" % (time() - start))
       
 print("Score for Grid Search", grid_search.score(X_test, y_test))
 
+#Run TPOT
 
 tpot = TPOTClassifier(verbosity=2, max_time_mins=4, population_size=40)
 tpot.fit(X_train, y_train)
