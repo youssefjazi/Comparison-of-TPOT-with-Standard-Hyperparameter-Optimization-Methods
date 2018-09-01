@@ -3,8 +3,10 @@
 ## Auto Sklearn Insatall and Requirement :
 
 ### Requirement:
--Linux operating system (for example Ubuntu),
+-Linux operating system (for example Ubuntu)\
+
 -Python (>=3.5).
+
 -C++ compiler (with C++11 supports) and SWIG (version 3.0 or later)
 
 
