@@ -24,5 +24,5 @@ Run: sudo apt-get install build-essential swig
 
 ## Installing TPOT
 Run: pip install tpot
-## Installing Sklearn
+## Installing Sklearn Library
 Run: pip install -U scikit-learn
