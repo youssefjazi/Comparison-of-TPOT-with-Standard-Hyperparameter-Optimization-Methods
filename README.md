@@ -1,6 +1,6 @@
 # Comparison-of-TPOT-with-Standard-Hyperparameter-Optimization-Methods
 
-## Auto Sklearn Insatall and Requirement :
+## Auto Sklearn Install and Requirement :
 
 ### Requirement:
 -Linux operating system (for example Ubuntu)
